@@ -1,0 +1,17 @@
+.inputZone {
+    display: flex;
+    flex-direction: row;
+    max-width: 522px;
+    gap: 12px;
+    align-items: flex-start;
+    margin: auto;
+}
+
+.circles {
+    padding-top: 120px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+    list-style: none;
+}
