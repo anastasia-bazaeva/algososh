@@ -1,0 +1,47 @@
+.sortingPanel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 980px;
+    margin: auto;
+    align-items: center;
+}
+
+.radioZone {
+    display: flex;
+    flex-direction: row; 
+    gap: 40px;
+}
+
+.buttonZone {
+    display: flex;
+    flex-direction: row; 
+    gap: 80px;
+}
+
+.sortButtons {
+    display: flex;
+    flex-direction: row; 
+    gap: 12px;
+}
+
+.button {
+    width: 205px;
+}
+
+.bars {
+    list-style: none;
+    padding-left: 0;
+    padding-top: 48px;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.activeButton {
+    color: white;
+    background-color: blue;
+}

@@ -1,3 +1,5 @@
+import { ElementStates } from "../types/element-states";
+
 export const swap = (arr: any[], firstIndex: number, secondIndex: number) => {
     const temp = arr[firstIndex];
     arr[firstIndex] = arr[secondIndex];
@@ -24,3 +26,14 @@ export const fibonacci = (n: number) => {
     }
     return arr
   }
+
+export const randomArr = () => {
+    const minArr = 3;
+    const maxArr = 17;
+    const arr = [];
+    const len = Math.floor(Math.random() * (maxArr - minArr + 1)) + minArr;
+    for (let i = 0; i < len; i++) {
+        arr.push({value: Math.floor(Math.random()*100), color: ElementStates.Default})
+    }
+    return arr
+}
