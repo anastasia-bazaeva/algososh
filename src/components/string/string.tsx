@@ -4,7 +4,7 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import { useForm } from "../../hooks/useForm";
+import { TvaluesStrings, useForm } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { delay, swap } from "../../utils/utils";
 import { DELAY_IN_MS } from "../../constants/delays";
@@ -15,7 +15,7 @@ type Letter = {
 };
 
 export const StringComponent: React.FC = () => {
-  const {values, handleChange, setValues } = useForm({word: ''});
+  const {values, handleChange, setValues } = useForm<TvaluesStrings>({word: ''});
   const [stringArr, setStringArr] = useState<Array<Letter>>([]);
   const [isLoader, setLoader] = useState<boolean>(false);
 
