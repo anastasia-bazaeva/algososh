@@ -4,9 +4,10 @@ import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import StringStyles from '../string/string.module.css';
 import { useForm, Tvaluesnumbers } from "../../hooks/useForm";
-import { delay } from "../../utils/utils";
+import { delay, fibonacci } from "../../utils/utils";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { Circle } from "../ui/circle/circle";
+import FiboStyles from './fibonacci.module.css';
 
 
 export const FibonacciPage: React.FC = () => {
@@ -30,20 +31,6 @@ export const FibonacciPage: React.FC = () => {
     setLoader(false);
   }
 
-  const fibonacci = (n: number) => {
-    let arr: Array<number> = [];
-    let a = 0;
-    let b = 1; 
-    let i = 0;
-    while (i <= n) {
-      a += b;
-      b = a - b;
-      arr.push(a);
-      i++;
-    }
-    return arr
-  }
-
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
      <form className={StringStyles.inputZone} onSubmit={onSubmit}>
@@ -63,7 +50,7 @@ export const FibonacciPage: React.FC = () => {
           disabled={!values.fiboNumber}
           />
         </form>
-        <ul className={StringStyles.circles}>
+        <ul className={FiboStyles.fibCircles}>
           {numbers?.map((item, index) => {
             return (<li key={index}>
                       <Circle letter={`${item}`} index={index}/>
