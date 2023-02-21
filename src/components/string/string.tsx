@@ -1,4 +1,4 @@
-import React, { FormEvent, SyntheticEvent, useEffect, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import StringStyles from "./string.module.css";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
@@ -10,8 +10,8 @@ import { delay, swap } from "../../utils/utils";
 import { DELAY_IN_MS } from "../../constants/delays";
 
 type Letter = {
-  value?: string;
-  color?: ElementStates;
+  value: string;
+  color: ElementStates;
 };
 
 export const StringComponent: React.FC = () => {
@@ -20,7 +20,7 @@ export const StringComponent: React.FC = () => {
   const [isLoader, setLoader] = useState<boolean>(false);
 
   const reverseString = async (string: string) => {
-    const arr = string.split('').map(letter => {
+    const arr = string.split('').map((letter) => {
       return ({
         value: letter,
         color: ElementStates.Default
@@ -31,18 +31,16 @@ export const StringComponent: React.FC = () => {
     let end = arr.length -1;
 
       while (start < end) {
-        if (arr.length <= 2) {
           arr[start].color = ElementStates.Changing;
           arr[end].color = ElementStates.Changing;
-        }
           await delay (DELAY_IN_MS); 
           swap(arr, start, end);
           arr[start].color = ElementStates.Modified;
           arr[end].color = ElementStates.Modified;
           start++;
           end--;
-          arr[start].color = ElementStates.Changing
-          arr[end].color = ElementStates.Changing
+          arr[start].color = ElementStates.Changing;
+          arr[end].color = ElementStates.Changing;
           setStringArr([...arr])
       }
         arr[start].color = ElementStates.Modified;
@@ -74,12 +72,12 @@ export const StringComponent: React.FC = () => {
           text="Развернуть"
           type="submit"
           isLoader={isLoader}
-          disabled={values.word ? false : true}
+          disabled={!values.word}
           />
         </form>
       <ul className={StringStyles.circles}>
         {stringArr?.map((item, index) => {
-          (<li key={index}>
+          return(<li key={index}>
             <Circle
             letter={item.value}
             state={item.color}/>
