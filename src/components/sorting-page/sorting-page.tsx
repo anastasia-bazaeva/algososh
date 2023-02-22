@@ -17,7 +17,7 @@ type NumberItem = {
 export const SortingPage: React.FC = () => {
 
   const [sort, setSort] = useState('selection');
-  const [direction, setDirection] = useState(Direction.Ascending);
+  const [direction, setDirection] = useState<Direction | undefined>(undefined);
   const [sortingArr, setSortingArr] = useState<Array<NumberItem>>([]);
   const [isLoader, setLoader] = useState(false);
 
@@ -69,6 +69,7 @@ export const SortingPage: React.FC = () => {
     }
     arr[last].color = ElementStates.Modified;
     setLoader(false);
+    setDirection(undefined);
   }
 
   const bubbleSort = async(arr: Array<NumberItem>, direction: Direction) => {
@@ -107,6 +108,7 @@ export const SortingPage: React.FC = () => {
       boofer[last - i].color = ElementStates.Modified;
     }
     setLoader(false);
+    setDirection(undefined);
   }
 
   useEffect(()=>{
