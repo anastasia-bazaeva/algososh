@@ -79,7 +79,7 @@ export const SortingPage: React.FC = () => {
 
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < last - i; j++) {
-        //в каких-то случаях почему-то первые два значения не всегда сортировались, добавила условия
+        //в каких-то случаях в самом конце сортировки почему-то первые два значения не всегда сортировались, добавила условия
         (direction === Direction.Ascending && j === boofer.length - i - 2 && boofer[j].value > boofer[j + 1].value) 
         ? swap(boofer, j, j + 1) : boofer[j].color = ElementStates.Changing;
         (direction === Direction.Descending && j === boofer.length - i - 2 && boofer[j].value < boofer[j + 1].value) 

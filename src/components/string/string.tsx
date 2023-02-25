@@ -9,7 +9,7 @@ import { ElementStates } from "../../types/element-states";
 import { delay, swap } from "../../utils/utils";
 import { DELAY_IN_MS } from "../../constants/delays";
 
-type Letter = {
+export type Letter = {
   value: string;
   color: ElementStates;
 };
