@@ -26,7 +26,8 @@ export const QueuePage: React.FC = () => {
       setItemsArr([...queue.getArray()]);
       setValues({item: ''});
       await delay(SHORT_DELAY_IN_MS);
-      queue.peak()!.color = ElementStates.Default;
+      queue.getArray()[queue.tail - 1] = {value: values.item, color: ElementStates.Default};
+      setItemsArr([...queue.getArray()]);
       console.log(itemsArr)
     }
     setLoader(false)
@@ -35,8 +36,13 @@ export const QueuePage: React.FC = () => {
   const remove = async() => {
     setLoader(true);
     if (!queue.isEmpty()) {
+      itemsArr[queue.head] = {value: values.item, color: ElementStates.Changing};
+      await delay(SHORT_DELAY_IN_MS);
+      queue.getArray()[queue.head - 1] = {value: '', color: ElementStates.Default};
       queue.dequeue();
+      setItemsArr([...queue.getArray()]);
     }
+    setLoader(false);
   }
 
   useEffect(()=>{

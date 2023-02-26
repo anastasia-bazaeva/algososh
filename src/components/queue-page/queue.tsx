@@ -2,6 +2,9 @@ interface IQueue<T> {
     enqueue: (item: T) => void;
     dequeue: () => void;
     peak: () => T | null;
+    getArray: () => Array<T> | null;
+    isEmpty: () => boolean;
+
   }
 
 export class Queue<T> implements IQueue<T> {
@@ -35,9 +38,11 @@ export class Queue<T> implements IQueue<T> {
         if(this.isEmpty()) {
             throw new Error('Нечего удалять');
         }
-        delete this.container[this.head % this.size];
-        this.head++
-        this.length--
+        if (this.length < this.size) {
+          delete this.container[this.head % this.size];
+          this.head++;
+          this.length--
+        }
       };
 
       peak = () => {
