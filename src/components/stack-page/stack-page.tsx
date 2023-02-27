@@ -57,7 +57,8 @@ export const StackPage: React.FC = () => {
       isLoader={isLoader} 
       add={add} 
       reset={reset}
-      remove={remove}/>
+      remove={remove}
+      isEmpty={stack.isEmpty()}/>
       <ul className={PanelStyle.itemList}>
         {itemsArr?.map((item, index)=> {
           return(<li key={index}>

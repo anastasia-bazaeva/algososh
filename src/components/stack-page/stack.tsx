@@ -4,6 +4,7 @@ interface IStack<T> {
     peak: () => T | null;
     getSize: () => number;
     clear: () => void;
+    isEmpty: () => boolean;
   }
 
   export class Stack<T> implements IStack<T> {
@@ -36,4 +37,6 @@ interface IStack<T> {
     clear = () => {
         this.container = []
     }
+
+    isEmpty = () => this.container.length > 0 ? false : true;
   }

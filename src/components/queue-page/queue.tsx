@@ -1,10 +1,12 @@
+import { ElementStates } from "../../types/element-states";
+
 interface IQueue<T> {
     enqueue: (item: T) => void;
     dequeue: () => void;
     peak: () => T | null;
     getArray: () => Array<T> | null;
     isEmpty: () => boolean;
-
+    clear: () => void;
   }
 
 export class Queue<T> implements IQueue<T> {
@@ -51,5 +53,15 @@ export class Queue<T> implements IQueue<T> {
         }
         return this.length > 0 ? this.container[this.head % this.size] : null;
       };
+
+      clear = () => {
+        if(this.isEmpty()) {
+          throw new Error('Нет элементов в очереди');
+        }
+        this.container = Array<T>(this.size)
+        this.head = 0;
+        this.tail = 0;
+        this.length = 0;
+      }
 
 }

@@ -1,5 +1,5 @@
-import React, {ChangeEventHandler, FC, useEffect, useState} from "react";
-import { Tvaluesnumbers, TvaluesStrings, useForm } from "../../hooks/useForm";
+import React from "react";
+import { TvaluesStrings } from "../../hooks/useForm";
 import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
 import PanelStyles from './stack-queue-panel.module.css';
@@ -7,14 +7,15 @@ import PanelStyles from './stack-queue-panel.module.css';
 interface TPanel {
     values: TvaluesStrings;
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
-    setValues: React.Dispatch<React.SetStateAction<TvaluesStrings>>;
+    setValues?: React.Dispatch<React.SetStateAction<TvaluesStrings>>;
     isLoader: boolean;
-    add: () => void;
+    add?: () => void;
     reset?: () => void;
     remove?: () => void;
+    isEmpty?: boolean;
 }
 
-export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, setValues, isLoader, add, reset, remove }) => {
+export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, isLoader, add, reset, remove, isEmpty }) => {
 
 
     return (
@@ -39,7 +40,7 @@ export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, setValu
             <Button
             text="Удалить"
             type="button"
-            disabled={isLoader}
+            disabled={isLoader || isEmpty}
             onClick={remove}
             />
         </div>
@@ -47,7 +48,7 @@ export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, setValu
             text="Очистить"
             type="button"
             onClick={reset}
-            disabled={isLoader}
+            disabled={isLoader || isEmpty}
             />
     </div>
 )

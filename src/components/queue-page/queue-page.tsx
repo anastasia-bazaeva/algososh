@@ -45,6 +45,13 @@ export const QueuePage: React.FC = () => {
     setLoader(false);
   }
 
+  const reset = () => {
+    setLoader(true);
+    queue.clear();
+    setItemsArr([...queue.getArray()]);
+    setLoader(false);
+  }
+
   useEffect(()=>{
     setItemsArr([...queue.getArray()]);
   },[])
@@ -58,11 +65,17 @@ export const QueuePage: React.FC = () => {
       isLoader={isLoader}
       add={add}
       remove={remove}
+      reset={reset}
+      isEmpty={queue.isEmpty()}
       />
       <ul className={PanelStyle.itemList}>
         {itemsArr?.map((item, index)=> {
           return(<li key={index}>
-            <Circle letter={item ? item.value : ''} index={index} state={item ? item.color : ElementStates.Default}/>
+            <Circle letter={item ? item.value : ''} 
+            index={index} 
+            state={item ? item.color : ElementStates.Default}
+            head={!queue.isEmpty() && index === queue.head ? 'head' : ''}
+            tail={!queue.isEmpty() && index === (queue.tail - 1) ? 'tail' : ''}/>
           </li>
           )
         })
