@@ -9,7 +9,7 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import SortingStyles from './sorting.module.css';
 
-type NumberItem = {
+export type NumberItem = {
   value: number;
   color: ElementStates;
 };
@@ -32,7 +32,7 @@ export const SortingPage: React.FC = () => {
 
   const handleClickNewArr = (e: SyntheticEvent) => {
     e.preventDefault();
-    setSortingArr(randomArr());
+    setSortingArr(randomArr(3, 17));
   }
 
   const pickSort = async(arr: Array<NumberItem>, direction: Direction) => {
@@ -112,7 +112,7 @@ export const SortingPage: React.FC = () => {
   }
 
   useEffect(()=>{
-    setSortingArr(randomArr())
+    setSortingArr(randomArr(3, 17))
   },[])
 
   return (
