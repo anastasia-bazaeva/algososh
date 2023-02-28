@@ -9,15 +9,18 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Queue } from "./queue";
 import PanelStyle from '../stack-queue-panel/stack-queue-panel.module.css';
 import { Circle } from "../ui/circle/circle";
+import { ButtonNames } from "../../types/buttons";
 
 export const QueuePage: React.FC = () => {
   const {values, handleChange, setValues } = useForm<TvaluesStrings>({item: ''});
   const [isLoader, setLoader] = useState(false);
   const [itemsArr, setItemsArr] = useState<Array<Letter>>(Array(7));
   const [queue] = useState(new Queue<Letter>(7));
+  const [activeButton, setButton] = useState<string>('')
 
   const add = async() => {
     setLoader(true);
+    setButton(ButtonNames.Add);
     if(values.item !== '') {
       queue.enqueue({
         value: values.item,
@@ -30,11 +33,13 @@ export const QueuePage: React.FC = () => {
       setItemsArr([...queue.getArray()]);
       console.log(itemsArr)
     }
+    setButton('');
     setLoader(false)
   }
 
   const remove = async() => {
     setLoader(true);
+    setButton(ButtonNames.Remove);
     if (!queue.isEmpty()) {
       itemsArr[queue.head] = {value: values.item, color: ElementStates.Changing};
       await delay(SHORT_DELAY_IN_MS);
@@ -42,13 +47,17 @@ export const QueuePage: React.FC = () => {
       queue.dequeue();
       setItemsArr([...queue.getArray()]);
     }
+    setButton('');
     setLoader(false);
   }
 
   const reset = () => {
     setLoader(true);
+    setButton(ButtonNames.Clear);
     queue.clear();
     setItemsArr([...queue.getArray()]);
+    setButton('');
+    setValues({item: ''})
     setLoader(false);
   }
 
@@ -67,6 +76,7 @@ export const QueuePage: React.FC = () => {
       remove={remove}
       reset={reset}
       isEmpty={queue.isEmpty()}
+      activeButton={activeButton}
       />
       <ul className={PanelStyle.itemList}>
         {itemsArr?.map((item, index)=> {

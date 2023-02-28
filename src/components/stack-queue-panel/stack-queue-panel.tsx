@@ -13,9 +13,10 @@ interface TPanel {
     reset?: () => void;
     remove?: () => void;
     isEmpty?: boolean;
+    activeButton?: string;
 }
 
-export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, isLoader, add, reset, remove, isEmpty }) => {
+export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, isLoader, add, reset, remove, isEmpty, activeButton }) => {
 
 
     return (
@@ -36,11 +37,13 @@ export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, isLoade
             type="button"
             onClick={add}
             disabled={isLoader}
+            isLoader={activeButton === 'Добавить'}
             />
             <Button
             text="Удалить"
             type="button"
             disabled={isLoader || isEmpty}
+            isLoader={activeButton === 'Удалить'}
             onClick={remove}
             />
         </div>
@@ -48,6 +51,7 @@ export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, isLoade
             text="Очистить"
             type="button"
             onClick={reset}
+            isLoader={activeButton === 'Очистить'}
             disabled={isLoader || isEmpty}
             />
     </div>

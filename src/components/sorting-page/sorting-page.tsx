@@ -140,6 +140,7 @@ export const SortingPage: React.FC = () => {
             text='По возрастанию'
             onClick={() => handleClickDirection(Direction.Ascending)}
             sorting={Direction.Ascending}
+            isLoader={isLoader && direction === Direction.Ascending}
             extraClass={direction === Direction.Ascending ? SortingStyles.activeButton : ''}
             disabled={isLoader}
             />
@@ -147,6 +148,7 @@ export const SortingPage: React.FC = () => {
             text='По убыванию'
             onClick={() => handleClickDirection(Direction.Descending)}
             sorting={Direction.Descending}
+            isLoader={isLoader && direction === Direction.Descending}
             extraClass={direction === Direction.Descending ? SortingStyles.activeButton : ''}
             disabled={isLoader}
             />

@@ -32,6 +32,7 @@ export const ListPage: React.FC = () => {
   const [isLoader, setLoader] = useState(false);
   const [elemArr, setElemArr] = useState<Array<ListArray>>([])
   const [list, setList] = useState<any>(null);
+  const [activeButton, setButton] = useState<string>('')
 
   useEffect(()=>{
     let randArr = randomArr(4, 6);
@@ -41,6 +42,7 @@ export const ListPage: React.FC = () => {
 
   const addToTail = async() => {
     setLoader(true);
+    setButton('addTail');
     await delay(SHORT_DELAY_IN_MS);
     list.addToTail({value: values.item,
     color: ElementStates.Changing});
@@ -63,11 +65,13 @@ export const ListPage: React.FC = () => {
 
     setElemArr(list.getArray());
     setValues({item: '', index: -1});
+    setButton('');
     setLoader(false);
   }
 
   const addToHead = async() => {
     setLoader(true);
+    setButton('addHead');
     await delay(SHORT_DELAY_IN_MS);
     list.addToHead({value: values.item,
     color: ElementStates.Changing});
@@ -90,12 +94,15 @@ export const ListPage: React.FC = () => {
     await delay(SHORT_DELAY_IN_MS);
     setElemArr(list.getArray());
     setValues({item: '', index: -1});
+    setButton('');
     setLoader(false);
   }
 
   const removeHead = async() => {
     setLoader(true);
+    setButton('removeHead');
     if(list.getSize() === 0) {
+      setButton('');
       setLoader(false);
     }
     elemArr[0] = {
@@ -109,13 +116,16 @@ export const ListPage: React.FC = () => {
     list.removeHead();
 
     setElemArr(list.getArray());
+    setButton('');
     setLoader(false);
   }
 
   const removeTail = async() => {
     setLoader(true);
+    setButton('removeTail');
     await delay(SHORT_DELAY_IN_MS);
     if(list.getSize() === 0) {
+      setButton('');
       setLoader(false);
     }
     elemArr[list.getSize()-1] = {
@@ -128,11 +138,13 @@ export const ListPage: React.FC = () => {
     await delay(SHORT_DELAY_IN_MS);
     list.removeTail();
     setElemArr(list.getArray());
+    setButton('');
     setLoader(false);
   }
 
   const addByPosition = async() => {
     setLoader(true);
+    setButton('addPosition');
     for (let i = 0; i <= values.index; i++ ) {
       if (i < list.getSize()) {
         elemArr[i] = {
@@ -157,11 +169,13 @@ export const ListPage: React.FC = () => {
     list.getArray()[values.index].color = ElementStates.Default;
     setElemArr(list.getArray());
     setValues({item: '', index: -1});
+    setButton('');
     setLoader(false);
   }
 
   const removeByPosition = async() => {
     setLoader(true);
+    setButton('removePosition');
     await delay(SHORT_DELAY_IN_MS);
     elemArr[values.index] = {
       ...elemArr[values.index],
@@ -174,6 +188,7 @@ export const ListPage: React.FC = () => {
     list.removeByPosition(values.index);
     setElemArr(list.getArray());
     setValues({item: '', index: -1});
+    setButton('');
     setLoader(false);
   }
 
@@ -193,21 +208,25 @@ export const ListPage: React.FC = () => {
           type="button"
           text="Добавить в head"
           onClick={addToHead}
+          isLoader={activeButton === 'addHead'}
           disabled={isLoader || list?.getSize() > 7}/>
         <Button
           type="button"
           text="Добавить в tail"
           onClick={addToTail}
+          isLoader={activeButton === 'addTail'}
           disabled={isLoader || list?.getSize() > 7}/>
         <Button
           type="button"
           text="Удалить из head"
           onClick={removeHead}
+          isLoader={activeButton === 'removeHead'}
           disabled={isLoader}/>
         <Button
           type="button"
           text="Удалить из tail"
           onClick={removeTail}
+          isLoader={activeButton === 'removeTail'}
           disabled={isLoader}/>
         <Input
           extraClass={ListStyles.input}
@@ -222,12 +241,14 @@ export const ListPage: React.FC = () => {
           text="Добавить по индексу"
           extraClass={ListStyles.button5}
           onClick={addByPosition}
+          isLoader={activeButton === 'addPosition'}
           disabled={isLoader || list?.getSize() > 7 || values.index < 0}/>
         <Button 
           type="button"
           text="Удалить по индексу"
           extraClass={ListStyles.button6}
           onClick={removeByPosition}
+          isLoader={activeButton === 'removePosition'}
           disabled={isLoader || values.index < 0}/>
       </div>
       <ul className={ListStyles.circles}>
