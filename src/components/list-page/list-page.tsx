@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { TvaluesStrings, useForm } from "../../hooks/useForm";
+import { Tvaluesnumbers, TvaluesStrings, useForm } from "../../hooks/useForm";
 import { delay, randomArr } from "../../utils/utils";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
@@ -12,11 +12,25 @@ import { Letter } from "../string/string";
 import { NumberItem } from "../sorting-page/sorting-page";
 import { ElementStates } from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { parseJsonSourceFileConfigFileContent } from "typescript";
+
+type ListArray = {
+  value: string | number;
+  color: ElementStates;
+  isUp?: boolean;
+  isDown?: boolean;
+  tempValue?: {item: string | number};
+}
+
+type ListForm = {
+  item: string;
+  index: number;
+}
 
 export const ListPage: React.FC = () => {
-  const {values, handleChange, setValues } = useForm<TvaluesStrings>({item: '', index: ''});
+  const {values, handleChange, setValues } = useForm<ListForm>({item: '', index: -1});
   const [isLoader, setLoader] = useState(false);
-  const [elemArr, setElemArr] = useState<Array<Letter | NumberItem>>([])
+  const [elemArr, setElemArr] = useState<Array<ListArray>>([])
   const [list, setList] = useState<any>(null);
 
   useEffect(()=>{
@@ -27,31 +41,73 @@ export const ListPage: React.FC = () => {
 
   const addToTail = async() => {
     setLoader(true);
-    setValues({item: '', index: ''});
     await delay(SHORT_DELAY_IN_MS);
     list.addToTail({value: values.item,
-    color: ElementStates.Modified});
+    color: ElementStates.Changing});
+    elemArr[list.getSize()-1] = {
+      ...elemArr[list.getSize()-1],
+      isUp: true,
+    }
+    setElemArr([...elemArr]);
+    await delay(SHORT_DELAY_IN_MS);
     setElemArr(list.getArray());
+    elemArr[list.getSize()-1].color = ElementStates.Changing;
+    setElemArr([...elemArr]);
+    await delay(SHORT_DELAY_IN_MS);
+    setElemArr(list.getArray());
+    await delay(SHORT_DELAY_IN_MS);
+    list.getArray()[list.getSize()-1].color = ElementStates.Modified;
+    setElemArr(list.getArray());
+    list.getArray()[list.getSize()-1].color = ElementStates.Default;
+    await delay(SHORT_DELAY_IN_MS);
+
+    setElemArr(list.getArray());
+    setValues({item: '', index: -1});
     setLoader(false);
   }
 
   const addToHead = async() => {
     setLoader(true);
-    setValues({item: '', index: ''});
     await delay(SHORT_DELAY_IN_MS);
     list.addToHead({value: values.item,
-    color: ElementStates.Modified});
+    color: ElementStates.Changing});
+    elemArr[0] = {
+      ...elemArr[0],
+      isUp: true,
+    }
+    setElemArr([...elemArr]);
+    await delay(SHORT_DELAY_IN_MS);
+
     setElemArr(list.getArray());
+    elemArr[0].color = ElementStates.Changing;
+    setElemArr([...elemArr]);
+    await delay(SHORT_DELAY_IN_MS);
+    setElemArr(list.getArray());
+    await delay(SHORT_DELAY_IN_MS);
+    list.getArray()[0].color = ElementStates.Modified;
+    setElemArr(list.getArray());
+    list.getArray()[0].color = ElementStates.Default;
+    await delay(SHORT_DELAY_IN_MS);
+    setElemArr(list.getArray());
+    setValues({item: '', index: -1});
     setLoader(false);
   }
 
   const removeHead = async() => {
     setLoader(true);
-    await delay(SHORT_DELAY_IN_MS);
     if(list.getSize() === 0) {
       setLoader(false);
     }
+    elemArr[0] = {
+      ...elemArr[0],
+      isDown: true,
+      tempValue: {item: elemArr[0].value},
+      value: '',
+    }
+    setElemArr([...elemArr]);
+    await delay(SHORT_DELAY_IN_MS);
     list.removeHead();
+
     setElemArr(list.getArray());
     setLoader(false);
   }
@@ -62,8 +118,62 @@ export const ListPage: React.FC = () => {
     if(list.getSize() === 0) {
       setLoader(false);
     }
+    elemArr[list.getSize()-1] = {
+      ...elemArr[list.getSize()-1],
+      isDown: true,
+      tempValue: {item: elemArr[list.getSize()-1].value},
+      value: '',
+    }
+    setElemArr([...elemArr]);
+    await delay(SHORT_DELAY_IN_MS);
     list.removeTail();
     setElemArr(list.getArray());
+    setLoader(false);
+  }
+
+  const addByPosition = async() => {
+    setLoader(true);
+    for (let i = 0; i <= values.index; i++ ) {
+      if (i < list.getSize()) {
+        elemArr[i] = {
+          ...elemArr[i],
+          isUp: true
+        }
+        elemArr[i].color = ElementStates.Changing;
+        if (i > 0 && i < list.getSize()) {
+          elemArr[i - 1].color = ElementStates.Changing;
+        }
+      }
+      setElemArr([...elemArr]);
+      await delay(SHORT_DELAY_IN_MS);
+    }
+    await delay(SHORT_DELAY_IN_MS);
+    list.addByPosition({value: values.item,
+      color: ElementStates.Changing}, values.index);
+    setElemArr(list.getArray());
+    list.getArray()[values.index].color = ElementStates.Modified;
+    setElemArr(list.getArray());
+    await delay(SHORT_DELAY_IN_MS);
+    list.getArray()[values.index].color = ElementStates.Default;
+    setElemArr(list.getArray());
+    setValues({item: '', index: -1});
+    setLoader(false);
+  }
+
+  const removeByPosition = async() => {
+    setLoader(true);
+    await delay(SHORT_DELAY_IN_MS);
+    elemArr[values.index] = {
+      ...elemArr[values.index],
+      isDown: true,
+      tempValue: {item: elemArr[values.index].value},
+      value: '',
+    }
+    setElemArr([...elemArr]);
+    await delay(SHORT_DELAY_IN_MS);
+    list.removeByPosition(values.index);
+    setElemArr(list.getArray());
+    setValues({item: '', index: -1});
     setLoader(false);
   }
 
@@ -106,24 +216,44 @@ export const ListPage: React.FC = () => {
           type="text"
           onChange={handleChange}
           maxLength={1}
-          value={values.index}/>
+          value={values.index > 0 ? values.index : ''}/>
         <Button 
           type="button"
           text="Добавить по индексу"
           extraClass={ListStyles.button5}
-          disabled={isLoader || list?.getSize() > 7}/>
+          onClick={addByPosition}
+          disabled={isLoader || list?.getSize() > 7 || values.index < 0}/>
         <Button 
           type="button"
           text="Удалить по индексу"
           extraClass={ListStyles.button6}
-          disabled={isLoader}/>
+          onClick={removeByPosition}
+          disabled={isLoader || values.index < 0}/>
       </div>
       <ul className={ListStyles.circles}>
         {elemArr?.map((item, index) => {
           return(
             <li className={ListStyles.circleZone} key={index}>
-              <Circle letter={item.value.toString()} index={index}/>
+              <Circle 
+              extraClass={ListStyles.circle}
+              letter={item.value ? item.value.toString() : ''} 
+              index={index} 
+              state={item?.color} 
+              head={index !== 0 || item.isUp ? '' : 'head'} 
+              tail={index !== elemArr.length - 1 || item.isDown ? '' : 'tail'}/>
               {index === elemArr.length - 1 ? '' : <img className={ListStyles.arrow} src={arrow}/>}
+              {item.isUp && ( <Circle 
+                letter={values.item.toString()}
+                isSmall={true}
+                state={ElementStates.Changing}
+                extraClass={ListStyles.miniCircleUp}/>
+              )}
+              {item.isDown && ( <Circle 
+                letter={item.tempValue?.item.toString()}
+                isSmall={true}
+                state={ElementStates.Changing}
+                extraClass={ListStyles.miniCircleDown}/>
+              )}
             </li>
           )
         })}

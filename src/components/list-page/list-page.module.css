@@ -66,3 +66,19 @@
     height: 24px;
     padding-left: 16px;
 }
+
+.circle {
+    position: relative;
+}
+
+.miniCircleUp {
+    position: absolute;
+    margin-top: -150px;
+    margin-left: 13px;
+}
+
+.miniCircleDown {
+    position: absolute;
+    margin-top: 200px;
+    margin-left: 13px;
+}

@@ -21,6 +21,7 @@ type ListClass<T> = {
     removeTail: () => void;
     addByPosition: (value: T, position: number) => void;
     getByPosition?: (position: number) => T;
+    removeByPosition: (position: number) => void;
 }
 
 export class LinkedList<T> implements ListClass<T> {
