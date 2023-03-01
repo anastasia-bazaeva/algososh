@@ -36,7 +36,7 @@ export const StackQueuePanel: React.FC<TPanel> = ({values, handleChange, isLoade
             text="Добавить"
             type="button"
             onClick={add}
-            disabled={isLoader}
+            disabled={isLoader || values.item === ''}
             isLoader={activeButton === 'Добавить'}
             />
             <Button

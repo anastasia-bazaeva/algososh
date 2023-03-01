@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { Tvaluesnumbers, TvaluesStrings, useForm } from "../../hooks/useForm";
+import { TvaluesStrings, useForm } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/utils";
 import { StackQueuePanel } from "../stack-queue-panel/stack-queue-panel";
