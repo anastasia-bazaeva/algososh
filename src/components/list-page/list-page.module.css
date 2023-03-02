@@ -1,0 +1,84 @@
+.panel {
+    display: grid;
+    max-width: 952px;
+    column-gap: 12px;
+    row-gap: 38px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas: 
+    "inp1 bt1 bt2 bt3 bt4"
+    "inp2 bt5 bt5 bt6 bt6"
+    ;
+    margin: auto;
+}
+
+.input {
+    width: 204px;
+}
+
+/* .input2 {
+    grid-area: inp2;
+    width: 204px;
+} */
+
+/* .button1 {
+    grid-area: bt1;
+}
+
+.button2 {
+    grid-area: bt2;
+}
+
+.button3 {
+    grid-area: bt3;
+}
+
+.button4 {
+    grid-area: bt4;
+} */
+
+.button5 {
+    grid-area: bt5;
+}
+
+.button6 {
+    grid-area: bt6;
+}
+
+.circles {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+    margin: auto;
+    margin-top: 90px;
+}
+
+.circleZone {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.arrow {
+    width: 24px;
+    height: 24px;
+    padding-left: 16px;
+}
+
+.circle {
+    position: relative;
+}
+
+.miniCircleUp {
+    position: absolute;
+    margin-top: -150px;
+    margin-left: 13px;
+}
+
+.miniCircleDown {
+    position: absolute;
+    margin-top: 200px;
+    margin-left: 13px;
+}

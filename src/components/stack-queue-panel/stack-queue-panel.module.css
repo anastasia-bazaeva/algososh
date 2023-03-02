@@ -1,0 +1,28 @@
+.panelZone {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 830px;
+    margin: auto;
+}
+
+.inputZone {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    width: 630px;
+}
+
+.itemList {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    padding-top: 48px;
+    max-width: 656px;
+    list-style: none;
+    padding-left: 0;
+    column-gap: 16px;
+    row-gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
