@@ -93,7 +93,7 @@ export const SortingPage: React.FC = () => {
         : boofer[j + 1].color = ElementStates.Changing;
 
         setSortingArr([...arr]);
-        await delay(SHORT_DELAY_IN_MS);
+        arr.length > 10 ? await delay(300) : await delay(SHORT_DELAY_IN_MS);
         if(direction === Direction.Ascending) {
           if(boofer[j].value > boofer[j + 1].value) {
             swap(boofer, j, j + 1);
