@@ -7,6 +7,21 @@ export const swap = (arr: any[], firstIndex: number, secondIndex: number) => {
     return arr;
 }
 
+export const reverseStringCounter = (string: string):number => {
+    const arr = string.split('');
+    let start = 0;
+    let end = arr.length -1;
+    let counter = 0;
+
+      while (start < end) {
+          swap(arr, start, end);
+          start++;
+          end--;
+          counter++;
+      }
+      return counter;
+    }
+
 export const delay = (delay: number) => {
     return new Promise<ReturnType<typeof setTimeout>>((resolve) => {
         setTimeout(resolve, delay)
