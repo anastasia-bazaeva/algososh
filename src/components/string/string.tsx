@@ -32,7 +32,7 @@ export const StringComponent: React.FC = () => {
     let counter = 0;
     let steps = reverseStringCounter(string)
 
-      while (counter <= steps) {
+      while (counter < steps) {
           arr[start].color = ElementStates.Changing;
           arr[end].color = ElementStates.Changing;
           await delay (DELAY_IN_MS); 
