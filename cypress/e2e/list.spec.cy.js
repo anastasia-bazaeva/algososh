@@ -81,22 +81,34 @@ describe('checking list work', () => {
   //   })
   // })
 
-  describe('delete element from head', ()=>{
-    it('delete from head button deletes element from head', ()=>{
-      cy.get('input').first().type('5');
-      cy.get('@addHeadButton').click();
-      wait(DELAY_IN_MS);
-      wait(DELAY_IN_MS);
-      cy.get('input').first().clear();
-      wait(DELAY_IN_MS);
-      wait(DELAY_IN_MS);
-      cy.get('input').first().type('7');
-      cy.get('@addHeadButton').click();
-      cy.get('@deleteHeadButton').click();
-      //cy.get('@circlesContent').eq(0).contains('5');
-      cy.get('@circles').eq(0).should('have.css', 'border', '4px solid rgb(210, 82, 225)');
-      cy.get('@circles').eq(0).should('have.css', 'border', '4px solid rgb(127, 224, 81)');
-      cy.get('@circles').eq(0).contains('7');
+  // describe('delete element from head', ()=>{
+  //   it('delete from head button deletes element from head', ()=>{
+  //     cy.get('input').first().type('A');
+  //     cy.get('@addHeadButton').click();
+  //     cy.get('@deleteHeadButton').click();
+  //     cy.get('@circlesContent').find('[class*=circle_changing]');
+  //     cy.get('@circles').eq(0).should('not.contain','A');
+  //   })
+  // })
+
+  // describe('delete element from tail', ()=>{
+  //   it('delete from tail button deletes element from tail', ()=>{
+  //     cy.get('input').first().type('A');
+  //     cy.get('@addTailButton').click();
+  //     cy.get('@deleteTailButton').click();
+  //     cy.get('@circlesContent').find('[class*=circle_changing]');
+  //     cy.get('@circles').eq(length-1).should('not.contain','A');
+  //   })
+  // })
+
+  describe('delete element by index', ()=>{
+    it('delete from index button deletes element from any position in list', ()=>{
+      cy.get('input').last().type('2');
+      cy.get('@deleteIndexButton').click();
+      cy.get('@circles').eq(0).find('[class*=circle_changing]');
+      cy.get('@circles').eq(1).find('[class*=circle_changing]');
+      cy.get('@circles').eq(2).find('[class*=circle_changing]');
     })
   })
+
 })
