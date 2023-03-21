@@ -1,6 +1,6 @@
 import {DELAY_IN_MS} from '../../src/constants/delays';
 
-describe('reverse thi string', () => {
+describe('reverse the string', () => {
   beforeEach(function() {
     cy.visit('http://localhost:3000/recursion');
     cy.contains('Развернуть').as('button');
