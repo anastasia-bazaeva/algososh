@@ -1,6 +1,6 @@
 import { DELAY_IN_MS } from "../../src/constants/delays";
 
-describe('template spec', () => {
+describe('checking stack work', () => {
   beforeEach(function() {
     cy.visit('http://localhost:3000/stack');
     cy.contains('Добавить').as('addButton');

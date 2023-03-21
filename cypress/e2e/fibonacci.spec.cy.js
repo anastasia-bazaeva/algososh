@@ -1,5 +1,5 @@
 
-describe('reverse the string', () => {
+describe('checking fibonacci sequense work', () => {
   beforeEach(function() {
     cy.visit('http://localhost:3000/fibonacci');
     cy.contains('Рассчитать').as('button');
