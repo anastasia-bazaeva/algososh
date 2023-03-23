@@ -17,21 +17,21 @@ describe('reverse the string', () => {
     })
   })
   
-  describe('correct coloring of circles', ()=>{
+  describe('correct coloring of circles for string with odd number of chars', ()=>{
     it('circles colors changing correctly', ()=>{
-      cy.get('input').type('melon');
+      cy.get('input').type('ALBUS');
       cy.get('@button').click();
       cy.get('[class*=circle_circle]').as('circles').should('have.length', 5).each((item, index)=>{
-        if(index === 0) cy.wrap().contains('m');
-        if(index === 1) cy.wrap().contains('e');
-        if(index === 2) cy.wrap().contains('l');
-        if(index === 3) cy.wrap().contains('o');
-        if(index === 4) cy.wrap().contains('n');
+        if(index === 0) cy.wrap().contains('A');
+        if(index === 1) cy.wrap().contains('L');
+        if(index === 2) cy.wrap().contains('B');
+        if(index === 3) cy.wrap().contains('U');
+        if(index === 4) cy.wrap().contains('S');
 
         if(index === 0 || index === 4) {
           cy.wrap(item).should('have.css', 'border', '4px solid rgb(210, 82, 225)');
-          if(index === 0) expect(item).to.contain('m');
-          if(index === 4) cy.wrap(item).contains('n');
+          if(index === 0) expect(item).to.contain('A');
+          if(index === 4) cy.wrap(item).contains('S');
         }
       });
 
@@ -39,26 +39,70 @@ describe('reverse the string', () => {
 
         cy.get('@circles').each((item, index) => {
           cy.wrap(item).should('have.css', 'border', '4px solid rgb(127, 224, 81)');
-            if(index === 0) expect(item).to.contain('n');
-            if(index === 4) cy.wrap(item).contains('m');
+            if(index === 0) expect(item).to.contain('S');
+            if(index === 4) cy.wrap(item).contains('A');
         });
 
         cy.wait(DELAY_IN_MS);
 
         cy.get('@circles').each((item, index) => {
           cy.wrap(item).should('have.css', 'border', '4px solid rgb(127, 224, 81)');
-            if(index === 1) expect(item).to.contain('o');
-            if(index === 3) cy.wrap(item).contains('e');
+            if(index === 1) expect(item).to.contain('U');
+            if(index === 3) cy.wrap(item).contains('L');
         });
 
         cy.wait(DELAY_IN_MS);
 
         cy.get('@circles').each((item, index) => {
           cy.wrap(item).should('have.css', 'border', '4px solid rgb(127, 224, 81)');
-            if(index === 2) expect(item).to.contain('l');
+            if(index === 2) expect(item).to.contain('B');
         });
     })
   })
   
+  describe('correct coloring of circles for string with even number of chars', ()=>{
+    it('circles colors changing correctly', ()=>{
+      cy.get('input').type('MALFOY');
+      cy.get('@button').click();
+      cy.get('[class*=circle_circle]').as('circles').should('have.length', 6).each((item, index)=>{
+        if(index === 0) cy.wrap().contains('M');
+        if(index === 1) cy.wrap().contains('A');
+        if(index === 2) cy.wrap().contains('L');
+        if(index === 3) cy.wrap().contains('F');
+        if(index === 4) cy.wrap().contains('O');
+        if(index === 5) cy.wrap().contains('Y');
+
+        if(index === 0 || index === 5) {
+          cy.wrap(item).should('have.css', 'border', '4px solid rgb(210, 82, 225)');
+          if(index === 0) expect(item).to.contain('M');
+          if(index === 5) cy.wrap(item).contains('Y');
+        }
+      });
+
+        cy.wait(DELAY_IN_MS);
+
+        cy.get('@circles').each((item, index) => {
+          cy.wrap(item).should('have.css', 'border', '4px solid rgb(127, 224, 81)');
+            if(index === 0) expect(item).to.contain('Y');
+            if(index === 5) cy.wrap(item).contains('M');
+        });
+
+        cy.wait(DELAY_IN_MS);
+
+        cy.get('@circles').each((item, index) => {
+          cy.wrap(item).should('have.css', 'border', '4px solid rgb(127, 224, 81)');
+            if(index === 1) expect(item).to.contain('O');
+            if(index === 4) cy.wrap(item).contains('A');
+        });
+
+        cy.wait(DELAY_IN_MS);
+
+        cy.get('@circles').each((item, index) => {
+          cy.wrap(item).should('have.css', 'border', '4px solid rgb(127, 224, 81)');
+            if(index === 2) expect(item).to.contain('F');
+            if(index === 3) cy.wrap(item).contains('L');
+        });
+    })
+  })
 
 })

@@ -25,6 +25,9 @@ describe('checking fibonacci sequense work', () => {
       cy.get('@button').click();
       
       cy.get('[class*=circle_circle]').as('circles').should('have.length', three+1).each((item, index) => {
+        if(index === 0) expect(item).to.contain('1');
+        if(index === 1) expect(item).to.contain('1');
+        if(index === 2) expect(item).to.contain('2');
         if(index === three) expect(item).to.contain('3');
       })
 
@@ -32,6 +35,11 @@ describe('checking fibonacci sequense work', () => {
       cy.get('@button').click();
       
       cy.get('[class*=circle_circle]').as('circles').should('have.length', five+1).each((item, index) => {
+        if(index === 0) expect(item).to.contain('1');
+        if(index === 1) expect(item).to.contain('1');
+        if(index === 2) expect(item).to.contain('2');
+        if(index === 3) expect(item).to.contain('3');
+        if(index === 4) expect(item).to.contain('5');
         if(index === five) expect(item).to.contain('8');
       })
     })
