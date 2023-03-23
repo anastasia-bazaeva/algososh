@@ -6,7 +6,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { TvaluesStrings, useForm } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
-import { delay, swap } from "../../utils/utils";
+import { delay, reverseStringCounter, swap } from "../../utils/utils";
 import { DELAY_IN_MS } from "../../constants/delays";
 
 export type Letter = {
@@ -29,8 +29,10 @@ export const StringComponent: React.FC = () => {
     setStringArr(arr);
     let start = 0;
     let end = arr.length -1;
+    let counter = 0;
+    let steps = reverseStringCounter(string)
 
-      while (start < end) {
+      while (counter < steps) {
           arr[start].color = ElementStates.Changing;
           arr[end].color = ElementStates.Changing;
           await delay (DELAY_IN_MS); 
@@ -41,7 +43,8 @@ export const StringComponent: React.FC = () => {
           end--;
           arr[start].color = ElementStates.Changing;
           arr[end].color = ElementStates.Changing;
-          setStringArr([...arr])
+          setStringArr([...arr]);
+          counter++
       }
         arr[start].color = ElementStates.Modified;
         arr[end].color = ElementStates.Modified;
